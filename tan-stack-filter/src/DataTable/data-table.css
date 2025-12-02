@@ -1,68 +1,120 @@
+/**
+ * DataTable.css
+ * 
+ * Стили для таблицы с грид-сеткой
+ * Использует Flexbox для создания сетки вместо традиционных таблиц
+ * Розовая цветовая схема с акцентами #ec4899
+ */
+
+/* Контейнер таблицы */
 .data-table-container {
   width: 100%;
-  overflow-x: auto;
   background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.15);
+  overflow: hidden;
 }
 
-.data-table {
+/* Основная грид-сетка */
+.table-grid {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  border-collapse: collapse;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  table-layout: fixed;
 }
 
-.data-table th {
-  background: #f8f9fa;
-  padding: 16px;
-  text-align: left;
+/* Заголовок таблицы - фиксированная позиция */
+.table-grid-header {
+  display: flex;
+  flex-direction: column;
+  background: #fdf2f8; /* Розовый фон */
+  border-bottom: 2px solid #fce7f3;
+  position: sticky;
+  top: 0;
+  z-index: 10; /* Поверх других элементов */
+}
+
+/* Тело таблицы с вертикальным скроллом */
+.table-grid-body {
+  display: flex;
+  flex-direction: column;
+  max-height: 600px; /* Ограничение высоты для скролла */
+  overflow-y: auto;
+}
+
+/* Строка в сетке (заголовок или данные) */
+.grid-row {
+  display: flex;
+  width: 100%;
+  min-height: 36px; /* Уменьшенная высота строк */
+  border-bottom: 1px solid #fce7f3; /* Светло-розовая граница */
+  transition: background-color 0.2s ease; /* Плавный ховер-эффект */
+}
+
+.grid-row:last-child {
+  border-bottom: none; /* Убираем границу у последней строки */
+}
+
+/* Ячейка заголовка */
+.grid-header-cell {
+  position: relative;
+  padding: 8px 12px; /* Уменьшенный padding */
+  display: flex;
+  align-items: center;
   font-weight: 600;
-  color: #495057;
-  border-bottom: 2px solid #dee2e6;
-  position: relative;
+  color: #831843; /* Темно-розовый текст */
+  background: #fdf2f8;
+  border-right: 1px solid #fce7f3;
+  user-select: none; /* Запрещаем выделение текста */
+  min-height: 40px; /* Минимальная высота */
+}
+
+.grid-header-cell:last-child {
+  border-right: none; /* Убираем правую границу у последней ячейки */
+}
+
+/* Стили для сортируемых заголовков */
+.grid-header-cell.sortable {
   cursor: pointer;
-  user-select: none;
-  transition: background-color 0.2s;
+}
+
+.grid-header-cell.sortable:hover {
+  background: #fce7f3; /* Светлый розовый при наведении */
+}
+
+/* Ячейка с данными */
+.grid-cell {
+  padding: 6px 12px; /* Уменьшенный padding для компактности */
+  display: flex;
+  align-items: center;
+  border-right: 1px solid #fce7f3;
+  color: #4b5563; /* Серый текст */
+  font-size: 14px;
+  min-height: 36px; /* Минимальная высота */
   overflow: hidden;
+  text-overflow: ellipsis; /* Обрезаем длинный текст */
+  white-space: nowrap; /* Запрещаем перенос строк */
 }
 
-.data-table th:hover {
-  background: #e9ecef;
+.grid-cell:last-child {
+  border-right: none;
 }
 
-.data-table th.sortable:hover {
-  background: #e3f2fd;
+/* Ховер-эффект для строк */
+.grid-row:hover {
+  background: #fdf2f8; /* Светло-розовый фон при наведении */
 }
 
-.data-table td {
-  padding: 14px 16px;
-  border-bottom: 1px solid #e9ecef;
-  color: #212529;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.data-table tbody tr:hover {
-  background: #f8f9fa;
-}
-
-.header-cell {
-  position: relative;
-  min-width: 80px;
-}
-
+/* Содержимое заголовка */
 .header-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
   width: 100%;
+  gap: 8px;
 }
 
 .header-text {
-  flex: 1;
+  flex: 1; /* Занимает все доступное пространство */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -71,13 +123,15 @@
   gap: 6px;
 }
 
+/* Иконка сортировки */
 .sort-icon {
   font-size: 12px;
-  color: #007bff;
+  color: #ec4899; /* Ярко-розовый */
   font-weight: bold;
   margin-left: 4px;
 }
 
+/* Кнопка фильтра */
 .filter-btn {
   background: transparent;
   border: none;
@@ -88,56 +142,37 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: #6c757d;
+  color: #9d174d; /* Темный розовый */
   font-size: 14px;
   transition: all 0.2s ease;
-  flex-shrink: 0;
+  flex-shrink: 0; /* Запрещаем сжатие */
   padding: 0;
 }
 
 .filter-btn:hover {
-  background: #e9ecef;
-  color: #495057;
+  background: #fce7f3;
+  color: #831843;
 }
 
 .filter-btn.active {
-  color: #ff6b6b;
-  background: #fff5f5;
-}
-
-/* Resize handle */
-.resizer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 8px;
-  height: 100%;
-  cursor: col-resize;
-  background: transparent;
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-.resizer:hover,
-.resizer.active {
-  opacity: 1;
-  background: #007bff;
+  color: #ec4899; /* Ярко-розовый для активного фильтра */
+  background: #fdf2f8;
 }
 
 /* Стили выпадающего окна фильтра */
 .filter-dropdown {
   position: fixed;
   background: white;
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid #fce7f3;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(236, 72, 153, 0.2);
   min-width: 320px;
   max-width: 400px;
-  z-index: 1000;
-  animation: slideDown 0.2s ease-out;
+  z-index: 1000; /* Поверх всех элементов */
+  animation: slideDown 0.2s ease-out; /* Анимация появления */
 }
 
+/* Анимация появления dropdown */
 @keyframes slideDown {
   from {
     opacity: 0;
@@ -149,23 +184,25 @@
   }
 }
 
+/* Заголовок dropdown */
 .filter-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 16px;
-  border-bottom: 1px solid #e9ecef;
-  background: #f8f9fa;
-  border-radius: 8px 8px 0 0;
+  border-bottom: 1px solid #fce7f3;
+  background: #fdf2f8;
+  border-radius: 12px 12px 0 0;
 }
 
 .filter-header h4 {
   margin: 0;
   font-size: 14px;
   font-weight: 600;
-  color: #495057;
+  color: #831843;
 }
 
+/* Кнопка закрытия */
 .close-btn {
   background: transparent;
   border: none;
@@ -177,46 +214,47 @@
   justify-content: center;
   cursor: pointer;
   font-size: 20px;
-  color: #6c757d;
+  color: #9d174d;
   transition: all 0.2s;
 }
 
 .close-btn:hover {
-  background: #e9ecef;
-  color: #dc3545;
+  background: #fce7f3;
+  color: #ec4899;
 }
 
-/* Вкладки */
+/* Вкладки фильтра */
 .filter-tabs {
   display: flex;
-  border-bottom: 1px solid #dee2e6;
-  background: #f8f9fa;
+  border-bottom: 1px solid #fce7f3;
+  background: #fdf2f8;
 }
 
 .tab-btn {
-  flex: 1;
+  flex: 1; /* Равная ширина */
   padding: 12px 16px;
   border: none;
   background: transparent;
   cursor: pointer;
   font-size: 13px;
   font-weight: 500;
-  color: #6c757d;
+  color: #9d174d;
   transition: all 0.2s;
-  border-bottom: 2px solid transparent;
+  border-bottom: 2px solid transparent; /* Индикатор активной вкладки */
 }
 
 .tab-btn:hover {
-  background: #e9ecef;
-  color: #495057;
+  background: #fce7f3;
+  color: #831843;
 }
 
 .tab-btn.active {
-  color: #007bff;
-  border-bottom-color: #007bff;
+  color: #ec4899;
+  border-bottom-color: #ec4899; /* Розовая линия под активной вкладкой */
   background: white;
 }
 
+/* Контент фильтра */
 .filter-content {
   padding: 16px;
   display: flex;
@@ -224,10 +262,10 @@
   max-height: 500px;
 }
 
-/* Стили поля поиска */
+/* Поле поиска */
 .search-field {
   margin-bottom: 12px;
-  flex-shrink: 0;
+  flex-shrink: 0; /* Запрещаем сжатие */
 }
 
 .search-input-wrapper {
@@ -239,47 +277,49 @@
 .search-icon {
   position: absolute;
   left: 12px;
-  color: #6c757d;
+  color: #9d174d;
   font-size: 14px;
 }
 
 .search-input {
   width: 100%;
-  padding: 10px 12px 10px 36px;
-  border: 1px solid #ced4da;
-  border-radius: 6px;
+  padding: 10px 12px 10px 36px; /* Отступ для иконки */
+  border: 1px solid #fce7f3;
+  border-radius: 8px;
   font-size: 14px;
   transition: border-color 0.2s, box-shadow 0.2s;
   background: white;
+  color: #831843;
 }
 
 .search-input:focus {
   outline: none;
-  border-color: #80bdff;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  border-color: #ec4899;
+  box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.1); /* Розовое свечение */
 }
 
 .search-input::placeholder {
-  color: #adb5bd;
+  color: #d1d5db; /* Светло-серый */
 }
 
-/* Стили списка чекбоксов с фиксированным заголовком */
+/* Список чекбоксов */
 .checkbox-list {
-  flex: 1;
+  flex: 1; /* Занимает все доступное пространство */
   display: flex;
   flex-direction: column;
-  border: 1px solid #e9ecef;
-  border-radius: 6px;
-  background: #f8f9fa;
+  border: 1px solid #fce7f3;
+  border-radius: 8px;
+  background: #fdf2f8;
   overflow: hidden;
   min-height: 200px;
 }
 
+/* Фиксированный заголовок списка чекбоксов */
 .checkbox-header.fixed-header {
   position: sticky;
   top: 0;
-  background: #e9ecef;
-  border-bottom: 1px solid #dee2e6;
+  background: #fce7f3;
+  border-bottom: 1px solid #f9a8d4;
   padding: 12px;
   z-index: 10;
   flex-shrink: 0;
@@ -290,7 +330,7 @@
   align-items: center;
   cursor: pointer;
   font-weight: 600;
-  color: #495057;
+  color: #831843;
   font-size: 13px;
   width: 100%;
 }
@@ -306,32 +346,36 @@
   flex: 1;
 }
 
+/* Счетчик выбранных элементов */
 .counter {
   font-size: 12px;
-  color: #6c757d;
+  color: #9d174d;
   font-weight: normal;
   margin-left: 8px;
 }
 
+/* Контейнер чекбоксов */
 .checkbox-items {
   flex: 1;
-  overflow-y: auto;
+  overflow-y: auto; /* Вертикальный скролл */
   padding: 8px;
   max-height: 200px;
 }
 
+/* Отдельный чекбокс */
 .checkbox-item {
   display: flex;
   align-items: center;
   padding: 8px;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.2s;
   font-size: 14px;
+  min-height: 32px; /* Минимальная высота для тач-устройств */
 }
 
 .checkbox-item:hover {
-  background: #e9ecef;
+  background: #fce7f3;
 }
 
 .checkbox-item .checkbox-input {
@@ -343,18 +387,19 @@
 
 .checkbox-item .checkbox-label {
   flex: 1;
-  color: #212529;
+  color: #831843;
 }
 
+/* Сообщение при отсутствии значений */
 .no-values {
   text-align: center;
   padding: 20px;
-  color: #6c757d;
+  color: #9d174d;
   font-style: italic;
   font-size: 14px;
 }
 
-/* Продвинутый фильтр */
+/* Контейнер продвинутого фильтра */
 .advanced-filter {
   flex: 1;
   display: flex;
@@ -363,6 +408,7 @@
   min-height: 200px;
 }
 
+/* Строка в продвинутом фильтре */
 .filter-row {
   display: flex;
   flex-direction: column;
@@ -372,73 +418,80 @@
 .filter-label {
   font-size: 13px;
   font-weight: 500;
-  color: #495057;
+  color: #831843;
 }
 
+/* Выпадающий список операторов */
 .operator-select {
   padding: 10px 12px;
-  border: 1px solid #ced4da;
-  border-radius: 6px;
+  border: 1px solid #fce7f3;
+  border-radius: 8px;
   font-size: 14px;
   background: white;
   cursor: pointer;
   transition: border-color 0.2s;
+  color: #831843;
 }
 
 .operator-select:focus {
   outline: none;
-  border-color: #80bdff;
+  border-color: #ec4899;
 }
 
+/* Поле ввода значения */
 .value-input {
   padding: 10px 12px;
-  border: 1px solid #ced4da;
-  border-radius: 6px;
+  border: 1px solid #fce7f3;
+  border-radius: 8px;
   font-size: 14px;
   background: white;
   transition: border-color 0.2s;
+  color: #831843;
 }
 
 .value-input:focus {
   outline: none;
-  border-color: #80bdff;
+  border-color: #ec4899;
 }
 
+/* Textarea для списка значений */
 .list-textarea {
   padding: 10px 12px;
-  border: 1px solid #ced4da;
-  border-radius: 6px;
+  border: 1px solid #fce7f3;
+  border-radius: 8px;
   font-size: 14px;
   background: white;
-  resize: vertical;
+  resize: vertical; /* Только вертикальный ресайз */
   font-family: inherit;
   min-height: 80px;
   max-height: 120px;
+  color: #831843;
 }
 
 .list-textarea:focus {
   outline: none;
-  border-color: #80bdff;
+  border-color: #ec4899;
 }
 
+/* Описание оператора */
 .filter-description {
   font-size: 12px;
-  color: #6c757d;
+  color: #9d174d;
   font-style: italic;
   padding: 8px;
-  background: #f8f9fa;
-  border-radius: 4px;
-  border-left: 3px solid #007bff;
+  background: #fdf2f8;
+  border-radius: 6px;
+  border-left: 3px solid #ec4899; /* Розовая акцентная линия */
   margin-top: 8px;
 }
 
-/* Стили кнопок действий */
+/* Кнопки действий */
 .filter-actions {
   display: flex;
   gap: 12px;
   margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px solid #e9ecef;
+  border-top: 1px solid #fce7f3;
   flex-shrink: 0;
 }
 
@@ -447,7 +500,7 @@
   flex: 1;
   padding: 10px 16px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -456,58 +509,77 @@
 }
 
 .reset-btn {
-  background: #f8f9fa;
-  color: #6c757d;
-  border: 1px solid #dee2e6;
+  background: #fdf2f8;
+  color: #9d174d;
+  border: 1px solid #fce7f3;
 }
 
 .reset-btn:hover {
-  background: #e9ecef;
-  color: #495057;
+  background: #fce7f3;
+  color: #831843;
 }
 
 .apply-btn {
-  background: #007bff;
+  background: #ec4899;
   color: white;
 }
 
 .apply-btn:hover {
-  background: #0056b3;
+  background: #db2777; /* Темнее при наведении */
 }
 
-/* Стили для скроллбара */
+/* Стилизация скроллбара для тела таблицы */
+.table-grid-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.table-grid-body::-webkit-scrollbar-track {
+  background: #fdf2f8;
+  border-radius: 4px;
+}
+
+.table-grid-body::-webkit-scrollbar-thumb {
+  background: #f9a8d4; /* Средний розовый */
+  border-radius: 4px;
+}
+
+.table-grid-body::-webkit-scrollbar-thumb:hover {
+  background: #ec4899; /* Ярко-розовый при наведении */
+}
+
+/* Стилизация скроллбара для списка чекбоксов */
 .checkbox-items::-webkit-scrollbar {
   width: 6px;
 }
 
 .checkbox-items::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #fdf2f8;
   border-radius: 3px;
 }
 
 .checkbox-items::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
+  background: #f9a8d4;
   border-radius: 3px;
 }
 
 .checkbox-items::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+  background: #ec4899;
 }
 
+/* Сообщение при отсутствии данных */
 .no-data-message {
   text-align: center;
   padding: 40px;
-  color: #6c757d;
+  color: #9d174d;
   font-style: italic;
-  background: #f8f9fa;
-  border-radius: 0 0 8px 8px;
-  border-top: 1px solid #dee2e6;
+  background: #fdf2f8;
+  border-top: 1px solid #fce7f3;
 }
 
-/* Стиль для неопределенного состояния чекбокса */
+/* Стиль для неопределенного состояния чекбокса (не все выбрано) */
 .checkbox-input[type="checkbox"]:indeterminate {
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: #ec4899;
+  border-color: #ec4899;
   position: relative;
 }
 
@@ -520,4 +592,22 @@
   height: 2px;
   background: white;
   transform: translate(-50%, -50%);
+}
+
+/* Адаптивные стили для мобильных устройств */
+@media (max-width: 768px) {
+  .grid-cell,
+  .grid-header-cell {
+    padding: 6px 8px; /* Еще меньше padding на мобильных */
+    font-size: 13px; /* Меньший размер шрифта */
+  }
+  
+  .filter-dropdown {
+    position: fixed;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 90%;
+    max-width: none; /* Убираем ограничение по ширине */
+  }
 }
