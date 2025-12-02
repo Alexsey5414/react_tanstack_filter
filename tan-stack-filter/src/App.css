@@ -1,0 +1,87 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #f5f7fa;
+  color: #333;
+  line-height: 1.6;
+}
+
+.App {
+  min-height: 100vh;
+}
+
+.App-header {
+  background: white;
+  padding: 30px 20px;
+  text-align: center;
+  border-bottom: 1px solid #e9ecef;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.App-header h1 {
+  color: #212529;
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.App-header p {
+  color: #6c757d;
+  font-size: 16px;
+}
+
+.App-main {
+  padding: 0 20px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .App-header {
+    padding: 20px 15px;
+  }
+  
+  .App-header h1 {
+    font-size: 24px;
+  }
+  
+  .App-main {
+    padding: 0 15px 30px;
+  }
+  
+  .table-controls {
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
+  }
+  
+  .global-filter-container {
+    width: 100%;
+  }
+  
+  .global-filter-toggle {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .reset-filters-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-dropdown {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 320px;
+    margin-top: 0;
+  }
+}

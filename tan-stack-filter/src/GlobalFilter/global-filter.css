@@ -1,0 +1,57 @@
+.global-filter-container {
+  position: relative;
+  display: inline-block;
+}
+
+.global-filter-toggle {
+  padding: 10px 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.global-filter-toggle:hover {
+  background: #0056b3;
+  transform: translateY(-1px);
+}
+
+.global-filter-toggle.active {
+  background: #0056b3;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.filter-count {
+  background: #ffc107;
+  color: #212529;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  margin-left: 4px;
+  font-weight: 600;
+}
+
+.filter-icon {
+  font-size: 14px;
+}
+
+/* Убираем старое позиционирование для глобального фильтра */
+.global-filter-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 8px;
+  z-index: 1001;
+}
+
+.global-filter-dropdown {
+  display: none; /* Используем другое позиционирование */
+}
